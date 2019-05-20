@@ -1,3 +1,6 @@
+require('dotenv').config()
+const path = require('path')
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -6,6 +9,16 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-source-flamelink`,
+      options: {
+        firebaseConfig: {
+          pathToServiceAccount: path.join(__dirname, 'admin.json'),
+          databaseURL: `https://${process.env.FB_PROJECT_ID}.firebaseio.com`,
+          storageBucket: `${process.env.FB_PROJECT_ID}.appspot.com`
+        },
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
